@@ -77,7 +77,7 @@ The goal of this project is to create a **cross-platform SOC lab** that simulate
 
 ---
 
-# ⚔️ MITRE ATT&CK Coverage
+# MITRE ATT&CK Coverage
 
 This lab covers **all 14 Enterprise MITRE ATT&CK tactics**.
 
