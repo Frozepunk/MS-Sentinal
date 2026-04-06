@@ -125,4 +125,3 @@ This lab serves as a **real-world SOC engineering showcase** demonstrating how t
 * write production-style detections
 * generate Sentinel incidents
 * map everything to MITRE ATT&CK
----
