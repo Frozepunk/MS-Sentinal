@@ -1,0 +1,29 @@
+let timeframe = 15m;
+let threshold = 3;
+SecurityEvent
+| where TimeGenerated >= ago(timeframe)
+| where Channel == "Microsoft-Windows-Sysmon/Operational"
+| where EventID == 1
+| where isnotempty(CommandLine)
+| extend ProcessName = tostring(tolower(split(CommandLine, " ")[0]))
+| where ProcessName has_any (
+    "nslookup.exe",
+    "ping.exe",
+    "tracert.exe",
+    "netstat.exe",
+    "arp.exe"
+)
+| summarize
+    ReconCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    Commands = make_set(ProcessName, 10)
+by Computer
+| where ReconCount >= threshold
+| project
+    FirstSeen,
+    LastSeen,
+    Computer,
+    ReconCount,
+    Commands
+| order by ReconCount desc
