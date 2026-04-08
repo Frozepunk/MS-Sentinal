@@ -1,3 +1,4 @@
+```
 User / Attacker
       │
       │  Attempts sudo with wrong password / unauthorized command
@@ -29,3 +30,4 @@ Microsoft Sentinel Alert
       │
       ▼
 SOC Investigation (Privilege Escalation Attempt)
+```

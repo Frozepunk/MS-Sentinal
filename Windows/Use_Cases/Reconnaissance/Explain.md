@@ -1,3 +1,4 @@
+```
 Attacker / User
       │
       │  Runs recon commands (ping, nslookup, netstat, etc.)
@@ -28,3 +29,4 @@ Microsoft Sentinel Alert
       │
       ▼
 SOC Investigation (Recon Activity)
+```

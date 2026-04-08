@@ -1,3 +1,4 @@
+```
 Attacker Machine
       │
       │  Multiple SSH failed login attempts
@@ -28,3 +29,4 @@ Microsoft Sentinel Alert
       │
       ▼
 SOC Investigation / Incident
+```
