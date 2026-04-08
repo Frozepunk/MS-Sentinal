@@ -1,0 +1,22 @@
+let threshold = 10;
+let timeframe = 15m;
+Syslog
+| where TimeGenerated >= ago(timeframe)
+| where ProcessName =~ "sshd"
+| where SyslogMessage has "Failed password"
+| parse kind=relaxed SyslogMessage with * "from " SrcIP " port " SrcPort " ssh2" *
+| summarize
+    FailedAttempts = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    TargetedUsers = make_set(SyslogMessage, 5)
+    by SrcIP, Computer
+| where FailedAttempts >= threshold
+| project
+    TimeGenerated = LastSeen,
+    SrcIP,
+    Computer,
+    FailedAttempts,
+    FirstSeen,
+    LastSeen,
+    TargetedUsers

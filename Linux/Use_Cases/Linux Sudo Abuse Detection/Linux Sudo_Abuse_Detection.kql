@@ -1,0 +1,27 @@
+let threshold = 5;
+let timeframe = 15m;
+Syslog
+| where TimeGenerated >= ago(timeframe)
+| where ProcessName =~ "sudo"
+   or SyslogMessage has "sudo"
+| where SyslogMessage has_any (
+    "authentication failure",
+    "incorrect password",
+    "command not allowed"
+)
+| parse kind=relaxed SyslogMessage with * "user=" Username
+| summarize
+    FailedSudoAttempts = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    SampleMessages = make_set(SyslogMessage, 3)
+    by Computer, Username
+| where FailedSudoAttempts >= threshold
+| project
+    TimeGenerated = LastSeen,
+    Computer,
+    Username,
+    FailedSudoAttempts,
+    FirstSeen,
+    LastSeen,
+    SampleMessages
