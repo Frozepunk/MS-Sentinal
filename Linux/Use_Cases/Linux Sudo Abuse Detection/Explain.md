@@ -19,7 +19,7 @@ Log Analytics Workspace
 │ 1. Filter last 15 mins                       │
 │ 2. Identify sudo-related events              │
 │ 3. Detect authentication failures            │
-│ 4. Extract username                         │
+│ 4. Extract username                          │
 │ 5. Group by user + host                      │
 │ 6. Count failed sudo attempts                │
 │ 7. Threshold >= 5                            │
